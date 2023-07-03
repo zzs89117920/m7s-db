@@ -19,7 +19,7 @@ type MysqlConfig struct {
 
 var MysqlPlugConfig =  &MysqlConfig{}
 
-var plugin = InstallPlugin(MysqlPlugConfig)
+var _ = InstallPlugin(MysqlPlugConfig)
 
 
 func (conf *MysqlConfig) OnEvent(event any){
