@@ -34,13 +34,13 @@ func (conf *MysqlConfig) OnEvent(event any){
     case UnsubscribeEvent://订阅者离开
   }
 }
-var db *gorm.DB
+var mysqldb *gorm.DB
 
-func DB() *gorm.DB{
+func MysqlDB() *gorm.DB{
 	once.Do(func() {
 			dsn := MysqlPlugConfig.Username + ":" + MysqlPlugConfig.Password + "@tcp(" + MysqlPlugConfig.Host + ":" + strconv.Itoa( MysqlPlugConfig.Port )+ ")/" + MysqlPlugConfig.DBName + "?charset=utf8mb4&parseTime=True&loc=Local"
-			db, _  =  gorm.Open(mysql.Open(dsn), &gorm.Config{}) // database: *gorm.DB
+			mysqldb, _  =  gorm.Open(mysql.Open(dsn), &gorm.Config{}) // database: *gorm.DB
 	})
 	// 核心代码,初始化后,在返回实例
-	return db
+	return mysqldb
 }
