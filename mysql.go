@@ -23,7 +23,7 @@ var plugin = InstallPlugin(MysqlPlugConfig)
 
 
 func (conf *MysqlConfig) OnEvent(event any){
- switch event.(type) {
+ 	switch event.(type) {
     case FirstConfig: //插件初始化逻辑
     case *Stream://按需拉流逻辑
     case SEwaitPublish://由于发布者掉线等待发布者
@@ -37,10 +37,10 @@ func (conf *MysqlConfig) OnEvent(event any){
 var db *gorm.DB
 
 func DB() *gorm.DB{
-	 	once.Do(func() {
-       	dsn := MysqlPlugConfig.Username + ":" + MysqlPlugConfig.Password + "@tcp(" + MysqlPlugConfig.Host + ":" + strconv.Itoa( MysqlPlugConfig.Port )+ ")/" + MysqlPlugConfig.DBName + "?charset=utf8mb4&parseTime=True&loc=Local"
-				db, _  =  gorm.Open(mysql.Open(dsn), &gorm.Config{}) // database: *gorm.DB
-    })
-    // 核心代码,初始化后,在返回实例
-    return db
+	once.Do(func() {
+			dsn := MysqlPlugConfig.Username + ":" + MysqlPlugConfig.Password + "@tcp(" + MysqlPlugConfig.Host + ":" + strconv.Itoa( MysqlPlugConfig.Port )+ ")/" + MysqlPlugConfig.DBName + "?charset=utf8mb4&parseTime=True&loc=Local"
+			db, _  =  gorm.Open(mysql.Open(dsn), &gorm.Config{}) // database: *gorm.DB
+	})
+	// 核心代码,初始化后,在返回实例
+	return db
 }
